@@ -1,0 +1,60 @@
+import Skeleton from '@mui/material/Skeleton';
+
+// Fixed Category Card Skeleton
+export const CategoryCardSkeleton = () => {
+    return (
+        <div className="w-full h-full min-h-55 p-5 flex flex-col gap-5 bg-gray-50 dark:bg-gray-800">
+            <div className="space-y-3">
+                <Skeleton
+                    variant="rectangular"
+                    width="75%"
+                    height={32}
+                    animation="wave"
+                    className="rounded-md!"
+                />
+            </div>
+
+            <Skeleton
+                variant="rectangular"
+                width={110}
+                height={36}
+                animation="wave"
+                className="rounded-md!"
+            />
+        </div>
+    );
+};
+
+export const ProductCardSkeleton = () => {
+    return (
+        <div className="flex w-full h-full min-h-22.5 gap-2 p-2 items-center">
+
+            <div className="w-7/12 space-y-2">
+                <Skeleton
+                    variant="text"
+                    width="90%"
+                    height={18}
+                    animation="wave"
+
+                />
+                <Skeleton
+                    variant="text"
+                    width="60%"
+                    height={14}
+                    animation="wave"
+
+                />
+            </div>
+
+            <div className="w-5/12 h-full flex items-end">
+                <Skeleton
+                    variant="rectangular"
+                    width="100%"
+                    height={65}
+                    animation="wave"
+                    className="rounded-sm! "
+                />
+            </div>
+        </div>
+    );
+};
