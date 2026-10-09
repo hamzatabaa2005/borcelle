@@ -4,7 +4,7 @@ import { Heart, MessageSquare, ShoppingCart, Menu, User } from 'lucide-react'
 import { NavLink } from 'react-router'
 import { OffCanvas } from './OffCanvas'
 import { CartProduct } from './CartProduct'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext/ThemeContext'
 import { BiHome } from 'react-icons/bi'
 import { TbCategoryFilled } from 'react-icons/tb'
@@ -15,7 +15,7 @@ import { LuContact, LuHeart } from 'react-icons/lu'
 import { UserContext } from '../context/UserContext/UserContext'
 import { CartContext } from '../context/CartContext/CartContext'
 import { FavoriteContext } from '../context/FavoriteContext/FavoriteContext'
-
+import { CategoryService } from '../services/CategoryService'
 
 export const Navbar = ({ searchExist = true }) => {
 
@@ -23,7 +23,14 @@ export const Navbar = ({ searchExist = true }) => {
     const { cart, setCart } = useContext(CartContext);
     const { mode, toggleMode } = useContext(ThemeContext);
     const { favorite } = useContext(FavoriteContext);
+    const [category, setCategory] = useState();
 
+    useEffect(() => {
+        CategoryService.GetCategory().then(data => {
+            setCategory(data.data)
+        }
+        )
+    }, [])
 
     function handleLogout() {
         localStorage.removeItem('user_info');
@@ -98,7 +105,7 @@ export const Navbar = ({ searchExist = true }) => {
                 </NavLink>
             </div>
 
-            {searchExist && <div className='lg:basis-1/2 lg:flex  h-12 items-center border-2 border-pink-500 rounded-lg mx-4 hidden '>
+            {searchExist && <div className=' lg:basis-1/2 lg:flex  h-12 items-center border-2 border-pink-500 rounded-lg mx-4 hidden '>
 
                 <BrandInput
                     placeholder={"search"}
@@ -110,11 +117,13 @@ export const Navbar = ({ searchExist = true }) => {
 
                 <DropDown
                     title="All Category"
-                    styleDrop=' h-11  border-s-pink-500 border-s-[2px] border-white w-42 rounded-none '
-                    styleMenu='border-pink-500 '>
-
-                    <NavLink to='/login' className="block p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 " >login</NavLink>
-                    <NavLink to='/verification' className="block p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 " >verification</NavLink>
+                    styleDrop=' h-11  border-s-pink-500 border-s-[2px] border-white w-42 rounded-none'
+                    styleMenu='border-pink-500  max-h-32 overflow-y-scroll [&::-webkit-scrollbar]:w-1
+                    [&::-webkit-scrollbar-thumb]:bg-pink-400
+                    [&::-webkit-scrollbar-thumb]:rounded-lg'>
+                    {category ? category.map(item => (
+                        <NavLink key={item.id} to={`/products/${item.id}`} className="block p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 " >{item.name}</NavLink>
+                    )) : <></>}
 
 
                 </DropDown>

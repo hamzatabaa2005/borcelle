@@ -11,7 +11,7 @@ export const UserCard = ({ img = "https://encrypted-tbn0.gstatic.com/images?q=tb
 
             <div className="flex items-center gap-3">
                 <div className="w-14 h-14 rounded-full overflow-hidden ">
-                    <img src={img} alt={`user ${user.name ? user.name : ""}`} className="w-full h-full object-cover object-center" />
+                    <img src={user.image ? user.image : img} alt={`user ${user.name ? user.name : ""}`} className="w-full h-full object-cover object-center" />
 
 
                 </div>

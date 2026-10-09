@@ -10,12 +10,15 @@ import { Breadcrumb } from "../../components/BreadCrumb";
 import { ProductService } from "../../services/ProductService";
 import { CategoryService } from "../../services/CategoryService";
 import { ProductListSection } from "./components/ProductListSection";
+import { useParams } from "react-router";
 
 
 export const Products = () => {
     const [grid, setGrid] = useState(true)
 
     const [width, setWidth] = useState(window.innerWidth)
+
+    const params = useParams()
 
     addEventListener('resize', () => {
         setWidth(window.innerWidth)
@@ -25,8 +28,7 @@ export const Products = () => {
     })
     const [productsData, setProducts] = useState(null)
     const [category, setCategory] = useState(null)
-
-    const [categoryID, setCategoryID] = useState(null)
+    const [categoryID, setCategoryID] = useState(params.CatID != "All" && params.CatID)
 
     useEffect(() => {
         ProductService.GetProductsByCategory(categoryID)
@@ -97,8 +99,8 @@ export const Products = () => {
                             <div>  12,911 items in <span className="font-bold">Mobile accessory</span> </div>
                             <div className="flex gap-3 items-center">
 
-                                <div className="flex gap-2">
-                                    <input type="checkbox" id="Verified" />
+                                <div className="flex gap-2 items-center">
+                                    <input type="checkbox" id="Verified" className="accent-pink-700 w-4 h-4" />
                                     <label htmlFor="Verified">Verified only</label>
                                 </div>
                                 <DropDown

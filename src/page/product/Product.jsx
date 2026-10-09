@@ -4,11 +4,8 @@ import ContainerLayout from "../../layout/ContainerLayout"
 import MainLayout from "../../layout/MainLayout"
 import { ProductCard } from "./components/productCard";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
-
-
 import { Pagination } from 'swiper/modules';
 import { useParams } from "react-router";
 import { ProductService } from "../../services/ProductService";
@@ -30,6 +27,7 @@ export const Product = () => {
 
 
     }, [])
+
     const productsMayLike = [
         {
             id: 1,

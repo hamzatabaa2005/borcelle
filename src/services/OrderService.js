@@ -4,7 +4,6 @@ export const OrderService = {
     CreateOrder: function (token, addressId, note = null, paymentType = "CASH", couponCode = null) {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER}`;
 
-
         return fetch(url, {
             method: "POST",
             headers: {
@@ -71,7 +70,7 @@ export const OrderService = {
                 return res.json();
             })
     },
-    DeleteOrder: function (id, token) {
+    CancelOrder: function (id, token) {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.Order}/${id}`;
 
         return fetch(url, {

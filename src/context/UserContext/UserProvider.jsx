@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
         return savedUser ? JSON.parse(savedUser) : {
             email: null,
             id: null,
-            img: null,
+            image: null,
             name: null,
             phone: null,
             token: null,

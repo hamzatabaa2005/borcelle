@@ -81,9 +81,9 @@ export const LinkWithICon = ({ icon, title, link, linkStyle }) => {
 }
 
 
-export const BrandInput = ({ placeholder, icon, divStyle, inputStyle, iconStyle, ...props }) => {
+export const BrandInput = ({ placeholder, icon, divStyle, inputStyle, iconStyle, onInput, ...props }) => {
     return (
-        <div className={`relative rounded-lg  border-gray-500 ${divStyle}`}>   <input {...props} className={`bg-white focus:outline-none rounded-lg px-3 py-2 w-full caret-pink-700 dark:bg-gray-700 dark:text-white  ${inputStyle} `} placeholder={placeholder} />
+        <div className={`relative rounded-lg  border-gray-500 ${divStyle}`}>   <input {...props} className={`bg-white focus:outline-none rounded-lg px-3 py-2 w-full caret-pink-700 dark:bg-gray-700 dark:text-white  ${inputStyle} `} onInput={onInput} placeholder={placeholder} />
             {icon ? <span className={`text-pink-700 text-xl absolute inset-e-4 inset-y-0 inset-bs-3 ${iconStyle}`}>{icon}</span> : <></>}    </div>
     )
 }

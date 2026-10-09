@@ -40,7 +40,7 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
     function RemoveFromFavorite() {
         setLike(false)
         console.log(user.token)
-        FavoriteService.DeleteFromCart(id, user.token).then(data => {
+        FavoriteService.DeleteFromFavorite(id, user.token).then(data => {
             console.log(data)
         })
             .catch(err => {

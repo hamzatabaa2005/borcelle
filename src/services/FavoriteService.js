@@ -46,7 +46,7 @@ export const FavoriteService = {
                 return res.json();
             })
     },
-    DeleteFromCart: function (id, token) {
+    DeleteFromFavorite: function (id, token) {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.FAVORITE}/${id}`;
 
         return fetch(url, {

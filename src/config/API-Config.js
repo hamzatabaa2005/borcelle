@@ -16,7 +16,8 @@ export const API_Config =
         FAVORITE: "favorite",
         CART: "cart",
         ORDER: "order",
-        ADDRESS: "address"
+        ADDRESS: "address",
+        CUSTOMER: "customer"
     }
 
 

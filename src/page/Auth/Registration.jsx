@@ -16,10 +16,10 @@ export const Registration = () => {
     const navigateTo = useNavigate();
 
     const [error, setError] = useState(null)
-    // const [PhoneErr, SetPhoneErr] = useState(null)
     const [form, setForm] = useState(
         {
             img: "",
+            imgFile: null,
             name: "",
             email: "",
             phoneNumber: "",
@@ -44,8 +44,10 @@ export const Registration = () => {
     function handelRegistration(e) {
         e.preventDefault();
         setError(null)
-        const { name, email, phoneNumber } = form;
-        AuthService.RegisterService(name, email, phoneNumber)
+        const { name, email, phoneNumber, imgFile
+        } = form;
+
+        AuthService.RegisterService(name, email, phoneNumber, imgFile)
             .then((data) => {
                 console.log(data)
                 navigateTo("/login")
@@ -54,15 +56,22 @@ export const Registration = () => {
                 setError(err)
             })
             .finally()
+
     }
 
     let isNumberValidate = () => (form.phoneNumber.length > 0 && !/^(?:[1-9]\d{8}|0\d{9})$/.test(form.phoneNumber))
     let isEmailValidate = () => (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email) && form.email.length > 0)
 
     function handleImg(e) {
-        const value = e.target.files[0];
-        const link = URL.createObjectURL(value)
-        setForm({ ...form, img: link })
+        const file = e.target.files[0]
+        console.log(file)
+            ; if (file) {
+                const link = URL.createObjectURL(file);
+                console.log("link")
+                console.log(link)
+                setForm({ ...form, img: link, imgFile: file });
+                console.log(form.imgFile)
+            }
     }
 
     return (

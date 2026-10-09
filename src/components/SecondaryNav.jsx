@@ -8,7 +8,7 @@ export const SecondaryNav = () => {
             <div className="md:flex items-center justify-between w-full max-w-7xl mx-auto hidden ">
                 <div className="flex items-center gap-5 lg:ms-0 ms-5">
                     <div className=" flex gap-2 items-center justify-center hover:text-pink-600">
-                        <NavLink to="/products">All Products</NavLink>
+                        <NavLink to="/products/All">All Products</NavLink>
                     </div>
                     <div className=" flex items-center justify-center hover:text-pink-600">
                         <NavLink to="">Hot offers</NavLink>
