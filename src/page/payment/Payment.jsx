@@ -9,6 +9,7 @@ import { CartContext } from "../../context/CartContext/CartContext"
 import { AddressService } from "../../services/AddressService"
 import { UserContext } from "../../context/UserContext/UserContext"
 import { OrderService } from "../../services/OrderService"
+import { useNavigate } from "react-router"
 
 // const initialProducts = [
 //     {
@@ -71,7 +72,10 @@ const Payment = () => {
     const [address, setAddress] = useState(null)
     const [SelectedAddress, setSelectedAddress] = useState(null)
     const [coupon, setCoupon] = useState(undefined)
-    const [paymentType, setPaymentType] = useState("cash")
+    const [paymentType, setPaymentType] = useState("CASH")
+
+    const navigateTo = useNavigate()
+
     useEffect(() => {
 
         AddressService.GetAddress(user.token).then(data => {
@@ -100,7 +104,9 @@ const Payment = () => {
             else if (index === address.length) return null
         }) : "address")
     }
-
+    const totalPrice = cart
+        ? cart.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0)
+        : 0
     return (
 
         <LogLayout NavExist={true} >
@@ -177,9 +183,9 @@ const Payment = () => {
 
 
                             <DropDown
-                                title={SelectedAddress ? ` ${SelectedAddress.name},${SelectedAddress.street}` : Default(address)[0].name}
-                                styleDrop=' h-11  border-s-pink-500 justify-between border-s-[2px] border-white w-42  w-full '
-                                styleMenu='border-pink-500 max-h-12 !w-full overflow-y-scroll [&::-webkit-scrollbar]:w-1
+                                title={SelectedAddress ? ` ${SelectedAddress.name},${SelectedAddress.street}` : "address"}
+                                styleDrop='text-black  h-11   justify-between border-s-[2px] border-white w-42  w-full '
+                                styleMenu='text-black  border-pink-500 max-h-12 !w-full overflow-y-scroll [&::-webkit-scrollbar]:w-1
                     [&::-webkit-scrollbar-thumb]:bg-pink-400
                     [&::-webkit-scrollbar-thumb]:rounded-lg'>
 
@@ -187,7 +193,6 @@ const Payment = () => {
                                     address ? address.map(item => (
                                         <button className="flex w-full p-2 hover:bg-pink-500" key={item.id} onClick={() => {
                                             setSelectedAddress(item)
-                                            console.log(item)
                                         }}>{item.name},{item.street}</button>
                                     )) : <></>
                                 }
@@ -224,20 +229,20 @@ const Payment = () => {
                         )) : <></>}
                     </div>
                     <p className="flex justify-between md:text-black text-white dark:text-white">
-                        Total: <span>110.000</span>
+                        Total: <span>{totalPrice}</span>
                     </p>
                     <p className="flex justify-between text-gray-400 md:text-black dark:text-white">
-                        Discount: <span>0</span>
+                        Discount: <span>{coupon ? "25 % " : " 0"}</span>
                     </p>
                     <p className="flex justify-between text-gray-400 md:text-black dark:text-white">
-                        tax: <span>4.000</span>
+                        tax: <span>{totalPrice ? 4.000 : 0}</span>
                     </p>
                 </div>
 
                 <div className="space-y-2 py-2
                 text-white md:text-black dark:text-white">
                     <p className="flex justify-between ">
-                        Total: <span className="text-3xl text-pink-700">110.000</span>
+                        Total: <span className="text-3xl text-pink-700">{totalPrice}</span>
                     </p>
 
                     <BrandBtn title={"confirm Payment"} btnStyle={"rounded-md w-full"} onClick={handelVerification} />
@@ -248,7 +253,7 @@ const Payment = () => {
                             <div className="flex flex-col items-center justify-center h-62 w-100 px-10 ">
                                 <p className="border-b mt-24 border-gray-200 pb-3">you have successfully paid for your
                                     order</p>
-                                <BrandBtn title={"continue"} btnStyle={"rounded-md w-full mt-5"} onClick={handelVerification} />
+                                <BrandBtn title={"continue"} btnStyle={"rounded-md w-full mt-5"} onClick={() => { navigateTo('/orders') }} />
                             </div>
                         </div>
                     </Modal>

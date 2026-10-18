@@ -8,12 +8,31 @@ export const getAdminInfo = function () {
     }
 }
 
+const containsFile = (v) => v instanceof Blob || (v !== null && typeof v === "object" && Object.values(v).some(containsFile));
+
+// {en:{name:"x"}} -> en[name]=x  (the format Laravel reads from form-data)
+const appendToForm = (form, key, value) => {
+    if (value instanceof Blob) form.append(key, value);
+    else if (value !== null && typeof value === "object") Object.entries(value).forEach(([k, v]) => appendToForm(form, `${key}[${k}]`, v));
+    else form.append(key, value);
+}
+
 // One shared fetch helper for every admin service (adds JSON headers + Bearer token)
 export const AdminRequest = function (endpoint, { method = "GET", body, auth = true } = {}) {
     const url = `${Admin_API_Config.BASE_URL}/${endpoint}`;
 
     const headers = { "Accept": "application/json" };
-    if (body) headers["Content-Type"] = "application/json";
+
+    // a body with a file (image) is sent as form-data; the browser sets the Content-Type with the boundary
+    const isForm = body && containsFile(body);
+    let payload;
+    if (isForm) {
+        payload = new FormData();
+        Object.entries(body).forEach(([k, v]) => appendToForm(payload, k, v));
+    } else if (body) {
+        headers["Content-Type"] = "application/json";
+        payload = JSON.stringify(body);
+    }
 
     if (auth) {
         const info = getAdminInfo();
@@ -23,7 +42,7 @@ export const AdminRequest = function (endpoint, { method = "GET", body, auth = t
     return fetch(url, {
         method: method,
         headers: headers,
-        body: body ? JSON.stringify(body) : undefined
+        body: payload
     }).then((res) => {
         if (res.status === 401 && auth) {
             localStorage.removeItem(Admin_API_Config.STORAGE_KEY);

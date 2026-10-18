@@ -9,6 +9,7 @@ import { CartContext } from "../../../context/CartContext/CartContext"
 import { ProductService } from "../../../services/ProductService"
 import { CartService } from "../../../services/CartService"
 import { FavoriteContext } from "../../../context/FavoriteContext/FavoriteContext"
+
 export const ProductCard = ({ image, name, price, description, rate = 5, originalPrice, numberOfOrders, isCol = true, is_favorite = false, id }) => {
     const { setCart } = useContext(CartContext);
     const [like, setLike] = useState(is_favorite);
@@ -84,22 +85,24 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
 
 
     return (
-        <div className={`flex relative border border-gray-200 dark:border-gray-600 rounded-lg h-full ${isCol ? " flex-col" : " gap-5"}`}>
+        <div className={`flex relative border border-gray-200 dark:border-gray-600 rounded-lg h-full  overflow-hidden ${isCol ? " flex-col" : " gap-5"}`}>
 
-            <div className={`rounded-t-md overflow-hidden shrink-0  ${isCol ? "h-1/2 w-full" : "h-full w-1/3"}`}>
+            <div className={`rounded-t-md overflow-hidden shrink-0  ${isCol ? "h-48 sm:h-56 w-full" : " w-1/3"}`}>
                 <img src={image} alt={name} loading="lazy" className="w-full h-full object-center object-cover" />
             </div>
 
-            <div className={`flex p-2  ${isCol ? "relative flex-col " : ""}`}>
-                {!isCol ? <p>{name}</p> : <></>}
-                <p>{price}{originalPrice ? <del className="text-gray-400 ms-2  ">{originalPrice}</del> : <></>} </p>
-                <div className="flex gap-3">
+            <div className={`flex p-4 flex-col justify-between ${isCol ? "relative " : ""}`}>
+                <div className="space-y-2 pe-8">
+                    <h3 className="font-semibold text-lg ">{name}</h3>
+                    <p className="font-bold">{price} ${originalPrice ? <del className="text-gray-400 ms-2  ">{originalPrice}</del> : <></>} </p>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
                     <Stars rate={rate} /> {!isCol ? <p>{numberOfOrders}</p> : ''}
                     {!isCol ? <p className="text-green-400">Free Shipping</p> : ''}
 
                 </div>
                 <div className="space-y-2 ">
-                    <p >{description ? description.slice(0, 100) : ""}</p>
+                    <p >{description ? description.slice(0, 100) + (description.length > 100 ? "..." : "") : ""}</p>
 
 
 
@@ -115,11 +118,12 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
                     </button>
 
                 </div>
-                <div className={`flex item-center   gap-3`}>
+                <div className={`flex item-center  gap-3 mt-4 self- pt-2 border-t border-gray-100 dark:border-gray-700`}>
                     <BrandLink path={`/product/${id}`} title={"Show Details"} btnStyle={"rounded-md hover:bg-pink-400"} />
                     <DefaultBtn title={"Add to Cart"} onClick={AddProductToCart}
                         btnStyle={"rounded-md dark:bg-gray-700 dark:text-white shadow-none  before:rounded-md"} />
                 </div>
+
             </div>
 
         </div>

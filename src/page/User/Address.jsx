@@ -55,6 +55,12 @@ export const Address = () => {
             .then((data) => {
                 console.log(data)
                 setShowModal(false)
+                AddressService.GetAddress(user.token).then(
+                    data => {
+                        console.log(data)
+                        setAddress(data.data)
+                    }
+                )
             })
             .catch(err => {
                 setError(err)
@@ -123,7 +129,7 @@ export const Address = () => {
                                         </div>
 
                                         <BrandInput placeholder="Zip code (optional)" divStyle="w-full" inputStyle={"border border-gray-300"} icon={<LuHash />}
-                                            value={form.zip_code} onChange={handleChange("zip_code")} />
+                                            value={form.zip_code} onChange={handleChange("zip_code")} required />
 
                                         <div className="hidden md:block"></div>
 

@@ -47,6 +47,10 @@ export const Cart = () => {
 
     const [savedProducts, setSavedProducts] = useState(null)
 
+    const totalPrice = cart
+        ? cart.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0)
+        : 0
+
     useEffect(() => {
 
         ProductService.GetProducts()
@@ -136,8 +140,8 @@ export const Cart = () => {
                     grid lg:grid-cols-1 sm:grid-cols-12
                     md:col-span-2 sm:me-8 sm:ms-5 mx-8 md:my-15  lg:gap-0 sm:gap-6 gap-3">
                         <div className="md:col-span-8 sm:col-span-6">
-                            <Bill subtotal={1403.97} discount={60.00}
-                                tax={14.00} />
+                            <Bill subtotal={totalPrice} discount={totalPrice && 60.00}
+                                tax={totalPrice && 14.00} />
                         </div>
                         <div className="lg:-order-1 md:col-span-4 sm:col-span-6">
                             <Coupon />

@@ -11,6 +11,7 @@ import { ProductService } from "../../services/ProductService";
 import { CategoryService } from "../../services/CategoryService";
 import { ProductListSection } from "./components/ProductListSection";
 import { useParams } from "react-router";
+import { BiReset } from "react-icons/bi";
 
 
 export const Products = () => {
@@ -19,6 +20,7 @@ export const Products = () => {
     const [width, setWidth] = useState(window.innerWidth)
 
     const params = useParams()
+    const [order, setOrder] = useState(null)
 
     addEventListener('resize', () => {
         setWidth(window.innerWidth)
@@ -28,21 +30,73 @@ export const Products = () => {
     })
     const [productsData, setProducts] = useState(null)
     const [category, setCategory] = useState(null)
-    const [categoryID, setCategoryID] = useState(params.CatID != "All" && params.CatID)
-
+    const [categoryID, setCategoryID] = useState(null)
+    const [orderBy, setOrderBy] = useState(null)
+    const [price, setPrice] = useState({ from: 0, to: 100000 })
     useEffect(() => {
-        ProductService.GetProductsByCategory(categoryID)
+        console.log(categoryID)
+        ProductService.GetProductsByCategoryAndSearch(categoryID || "", params.Search || "")
             .then(products => {
                 setProducts(products.data)
+                console.log(products)
             })
 
-    }, [categoryID])
+    }, [categoryID, params.Search])
+
+
+
     useEffect(() => {
+
         CategoryService.GetCategory()
             .then(category => {
                 setCategory(category.data)
             })
     }, [])
+
+    useEffect(() => {
+        if (params?.CatID) {
+
+            setCategoryID(params.CatID);
+        }
+        else { setCategoryID(null); }
+    }, [params?.CatID]);
+
+
+    function handelOrder() {
+        const sort = order == "desc" ? "asc" : "desc"
+        setOrder(sort)
+
+        ProductService.filterProduct(categoryID || "", orderBy || "", sort, price.from || "", price.to || "").then(products => {
+            setProducts(products.data)
+        })
+    }
+
+    function handelOrderBy(e) {
+        console.log(e.target.value)
+        setOrderBy(e.target.value)
+        ProductService.filterProduct(categoryID || "", e.target.value, order || "", price.from || "", price.to || "").then(products => {
+            setProducts(products.data)
+        })
+    }
+
+    function handelPrice(priceRange) {
+        console.log(priceRange)
+        setPrice({ from: priceRange.from, to: priceRange.to })
+        ProductService.filterProduct(categoryID || "", orderBy || "", order || "asc", priceRange.from, priceRange.to).then(products => {
+            setProducts(products.data)
+        })
+    }
+
+    function handleReset() {
+        setCategoryID(null)
+        setOrder(null)
+        setOrderBy(null)
+        setPrice({ from: 0, to: 100000 })
+        ProductService.GetProducts().then(products => {
+            setProducts(products.data)
+        })
+    }
+
     return (
         <MainLayout>
 
@@ -50,7 +104,7 @@ export const Products = () => {
 
                 <Breadcrumb />
 
-                <div className="grid md:grid-cols-12 md:gap-10">
+                <div className="grid md:grid-cols-12 md:gap-10 ">
 
                     <div className="md:block md:col-span-3 hidden w-full rounded-md  text-black dark:text-white mt-20">
 
@@ -60,6 +114,11 @@ export const Products = () => {
                             )
                             ) : <></>}
                         </Accordion>
+                        <Accordion header="Price Range">
+                            <button className="text-start ps-2 py-2  hover:bg-pink-300/30 block rounded-md w-full" onClick={() => handelPrice({ from: 0, to: 500 })}>from 0 to 500</button>
+                            <button className="text-start ps-2 py-2  hover:bg-pink-300/30 block rounded-md w-full" onClick={() => handelPrice({ from: 500, to: 2500 })} >from 500 to 2500</button>
+                            <button className="text-start ps-2 py-2  hover:bg-pink-300/30 block rounded-md w-full" onClick={() => handelPrice({ from: 2500, to: 9999 })}>from 2500 to 9999</button>
+                        </Accordion>
                         <Accordion header="Brand " >
                             {/* {category.map(item => (
 
@@ -67,12 +126,6 @@ export const Products = () => {
                             )} */}
                         </Accordion>
                         <Accordion header="Feature">
-                            {/* {category.map(item => (
-
-                            )
-                            )} */}
-                        </Accordion>
-                        <Accordion header="Price Range">
                             {/* {category.map(item => (
 
                             )
@@ -99,15 +152,19 @@ export const Products = () => {
                             <div>  12,911 items in <span className="font-bold">Mobile accessory</span> </div>
                             <div className="flex gap-3 items-center">
 
-                                <div className="flex gap-2 items-center">
-                                    <input type="checkbox" id="Verified" className="accent-pink-700 w-4 h-4" />
-                                    <label htmlFor="Verified">Verified only</label>
+                                <button className="bg-pink-600 w-5 h-5 flex justify-center items-center rounded-full" onClick={handleReset}> <BiReset /></button>
+                                <div className="flex gap-2 items-center" onClick={handelOrder}>
+                                    <input type="checkbox" id="Verified" className="accent-pink-700 w-4 h-4" checked={order == "asc"} />
+                                    <label htmlFor="Verified">order : {order == "desc" ? "asc" : "desc"}</label>
                                 </div>
                                 <DropDown
-                                    title="Feature"
+                                    title={orderBy ? orderBy : "orderBy"}
                                     styleDrop="h-8 w-32"
                                 >
-                                    <div className=" p-2 cursor-pointer hover:bg-gray-300 " >login</div>
+                                    <button className=" p-2 cursor-pointer hover:bg-gray-300 flex justify-start w-full" onClick={handelOrderBy} value={"name"} >name</button>
+                                    <button className=" p-2 cursor-pointer hover:bg-gray-300 flex justify-start w-full" onClick={handelOrderBy} value={"price"} >price</button>
+                                    <button className=" p-2 cursor-pointer hover:bg-gray-300 flex justify-start w-full" onClick={handelOrderBy} value={"created_at"} >created_at</button>
+                                    <button className=" p-2 cursor-pointer hover:bg-gray-300 flex justify-start w-full" onClick={handelOrderBy} value={"most_purchased"} >most_purchased</button>
                                 </DropDown>
 
                                 <div className="md:flex hidden border border-gray-300 rounded-md overflow-hidden ">
@@ -136,8 +193,8 @@ export const Products = () => {
 
 
                 </div>
-            </ContainerLayout>
+            </ContainerLayout >
 
-        </MainLayout>
+        </MainLayout >
     )
 }

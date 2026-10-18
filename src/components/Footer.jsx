@@ -5,6 +5,7 @@ import { LiaFlagUsaSolid } from "react-icons/lia";
 import { SiSaudia } from "react-icons/si";
 import { FaApple } from "react-icons/fa";
 import { FaGooglePlay } from "react-icons/fa";
+
 export const Footer = ({ subscribeExist = true }) => {
 
 

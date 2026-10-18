@@ -4,7 +4,7 @@ import { useState } from "react"
 
 
 
-export const OffCanvas = ({ children, isRtl = true, xColor = "bg-black", IconColor = "bg-black", OffCanvasStyle, icon, header, ...buttonProps }) => {
+export const OffCanvas = ({ children, isRtl = true, xColor = "text-black", IconColor = "text-black", OffCanvasStyle, icon, header, ...buttonProps }) => {
     const [isHidden, setIsHidden] = useState(true);
 
     return (
@@ -15,8 +15,8 @@ export const OffCanvas = ({ children, isRtl = true, xColor = "bg-black", IconCol
                 <span className={`${IconColor} `}>{icon}</span>
             </button>
             <div className={`${isHidden ? "hidden" : ""}  fixed z-50 inset-be-0 inset-bs-0 
-            ${isRtl ? "inset-e-[15%] lg:inset-e-[75%] inset-s-0  " :
-                    "inset-s-[15%] lg:inset-s-[75%] inset-e-0"
+            ${isRtl ? "inset-e-[15%] lg:inset-e-[50%] inset-s-0  " :
+                    "inset-s-[15%] lg:inset-s-[60%] inset-e-0"
                 }
             transition-all ease-in-out duration-300 dark:bg-gray-900  ${OffCanvasStyle} `}
             >

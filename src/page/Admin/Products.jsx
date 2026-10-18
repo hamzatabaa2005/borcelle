@@ -14,7 +14,11 @@ const fields = [
     { name: "en.description", label: "Description (EN)", type: "textarea" },
     { name: "ar.name", label: "Name (AR)" },
     { name: "ar.description", label: "Description (AR)", type: "textarea" },
+    { name: "image", label: "Image (optional)", type: "file" },
 ];
+
+// editing a product does not change its image
+const editFields = fields.filter((f) => f.type !== "file");
 
 const columns = [
     {
@@ -43,5 +47,5 @@ const toForm = (item) => ({
 });
 
 export const Products = () => (
-    <ResourcePage title="Products" addLabel="Add product" service={AdminProductService} columns={columns} createFields={fields} toForm={toForm} showView />
+    <ResourcePage title="Products" addLabel="Add product" service={AdminProductService} columns={columns} createFields={fields} editFields={editFields} toForm={toForm} showView />
 )

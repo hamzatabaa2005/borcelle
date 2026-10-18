@@ -7,7 +7,7 @@ import { ThemeProvider } from './context/ThemeContext/ThemeProvider.jsx';
 import { UserProvider } from './context/UserContext/UserProvider.jsx';
 import { CartProvider } from './context/CartContext/CartProvider.jsx';
 import { FavoriteProvider } from './context/FavoriteContext/FavoriteProvider.jsx';
-
+import './i18n/i18n.js';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

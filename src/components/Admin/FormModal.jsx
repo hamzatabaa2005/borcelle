@@ -4,7 +4,7 @@ import { toNested } from "../../page/Admin/utils/adminHelpers";
 
 const inputStyle = "w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-2 focus:outline-none focus:border-pink-500";
 
-// fields: [{ name:"en.name", label, type:"text|number|textarea|select", options?, loadOptions?, required? }]
+// fields: [{ name:"en.name", label, type:"text|number|textarea|select|file", options?, loadOptions?, required? }]
 export const FormModal = ({ title, fields, initial = {}, onSubmit, onClose }) => {
 
     const [values, setValues] = useState(initial);
@@ -56,6 +56,11 @@ export const FormModal = ({ title, fields, initial = {}, onSubmit, onClose }) =>
                                     <option value="">Select...</option>
                                     {(f.options ?? options[f.name] ?? []).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                                 </select>
+                            )}
+                            {f.type === "file" && (
+                                <input type="file" accept="image/png, image/jpeg, image/webp"
+                                    className="text-gray-800 dark:text-white file:mr-3 file:rounded-md file:border-0 file:bg-pink-700 file:text-white file:px-3 file:py-2"
+                                    onChange={(e) => handleChange(f.name, e.target.files[0])} />
                             )}
                             {(f.type === "text" || f.type === "number" || !f.type) && (
                                 <input dir="auto" type={f.type ?? "text"} step={f.type === "number" ? "any" : undefined} required={f.required} className={inputStyle} value={values[f.name] ?? ""} onChange={(e) => handleChange(f.name, e.target.value)} />

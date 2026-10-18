@@ -1,7 +1,7 @@
 
-import { BrandBtn, DropDown, LinkWithICon, BrandInput, DefaultLink } from './BrandBtn'
+import { BrandBtn, DropDown, LinkWithICon, BrandInput, DefaultLink, BrandLink } from './BrandBtn'
 import { Heart, MessageSquare, ShoppingCart, Menu, User } from 'lucide-react'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import { OffCanvas } from './OffCanvas'
 import { CartProduct } from './CartProduct'
 import { useContext, useEffect, useState } from 'react'
@@ -16,15 +16,28 @@ import { UserContext } from '../context/UserContext/UserContext'
 import { CartContext } from '../context/CartContext/CartContext'
 import { FavoriteContext } from '../context/FavoriteContext/FavoriteContext'
 import { CategoryService } from '../services/CategoryService'
+import { LanguageSwitcher } from './LanguageSwitcher'
+import { useTranslation } from 'react-i18next'
+const img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKnU4XtQ8y81rbY0iIvDf4dCwvjl-ckN2P-cLgmEdo7w&s"
 
 export const Navbar = ({ searchExist = true }) => {
 
+    const { t } = useTranslation();
     const { user, setUser } = useContext(UserContext);
     const { cart, setCart } = useContext(CartContext);
     const { mode, toggleMode } = useContext(ThemeContext);
     const { favorite } = useContext(FavoriteContext);
     const [category, setCategory] = useState();
+    const [selected, setSelected] = useState({
+        name: "",
+        id: null
+    })
+    const [search, setSearch] = useState(null)
+    const navigateTo = useNavigate()
 
+    const totalPrice = cart
+        ? cart.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0)
+        : 0
     useEffect(() => {
         CategoryService.GetCategory().then(data => {
             setCategory(data.data)
@@ -45,32 +58,45 @@ export const Navbar = ({ searchExist = true }) => {
         setCart(null);
     }
 
+    function handleSearch(e) {
+        setSearch(e.target.value)
+    }
+
     return (
         <nav className={`${searchExist ? "lg:justify-normal " : ""} flex  py-2 items-center justify-between w-full max-w-7xl mx-auto dark:bg-gray-900 `}>
 
             <div className={`${searchExist ? "lg:basis-1/3" : ""} flex items-center lg:ms-0 ms-2   h-5`}>
 
                 <span className='md:hidden'>
-                    <OffCanvas OffCanvasStyle={"bg-white"} xColor='text-black' IconColor='text-black' icon={<Menu />}>
+                    <OffCanvas OffCanvasStyle={"bg-white"} xColor='text-black dark:text-pink-600' IconColor='text-black dark:text-pink-600' icon={<Menu />}>
                         <div className=' flex flex-col gap-2 bg-gray-200 dark:bg-pink-800 text-black dark:text-white py-4 ps-4'>
-                            <div className='h-24 w-24 rounded-full overflow-hidden me-3 '>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKnU4XtQ8y81rbY0iIvDf4dCwvjl-ckN2P-cLgmEdo7w&s" alt="user" className='w-full h-full object-cover object-center' />
+                            <div className='flex gap-5'>
+                                <div className='h-24 w-24 rounded-full overflow-hidden me-3 '>
+                                    <img src={user.image ? user.image : img} alt="user" className='w-full h-full object-cover object-center' />
+                                </div>
+                                {
+                                    user.token && <div className='flex flex-col justify-center ps-2 dark:text-white text-black '>
+                                        <div className='font-extrabold'>{user.name}</div>
+                                        {user.email ? <div>{user.email}</div> : <></>}
+                                    </div>
+                                }
+
                             </div>
-                            <div className='flex items-center gap-4'>
-                                <DefaultLink title={"Sign in"} path={"/login"} btnStyle={"rounded-md before:rounded-md"} />
+                            {!user.token && <div className='flex items-center gap-4'>
+                                <DefaultLink title={t("Sign in")} path={"/login"} btnStyle={"rounded-md before:rounded-md"} />
                                 <span>|</span>
-                                <DefaultLink title={"Register"} path={"/registration"} btnStyle={"rounded-md before:rounded-md"} />
-                            </div>
+                                <DefaultLink title={t("Register")} path={"/registration"} btnStyle={"rounded-md before:rounded-md"} />
+                            </div>}
                         </div>
                         <div className='flex flex-col items-start gap-2 border-b border-b-gray-200 dark:border-b-gray-600 py-4 ps-4'>
-                            <LinkWithICon title={"Home"} path={"/"} icon={<BiHome />} />
-                            <LinkWithICon title={"Products"} path={"/products"} icon={<GrProductHunt />} />
-                            <LinkWithICon title={"Favorites"} path={"/favorite"} icon={<LuHeart />} />
-                            <LinkWithICon title={"My orders"} path={"/order"} icon={<TbCategoryFilled />} />
+                            <LinkWithICon title={"Home"} link={"/"} icon={<BiHome />} />
+                            <LinkWithICon title={"Products"} link={"/products/All"} icon={<GrProductHunt />} />
+                            <LinkWithICon title={"Favorites"} link={"/favorite"} icon={<LuHeart />} />
+                            <LinkWithICon title={"My orders"} link={"/orders"} icon={<TbCategoryFilled />} />
                         </div>
                         <div className='flex flex-col items-start gap-2 border-b border-b-gray-200 dark:border-b-gray-600 py-4 ps-4'>
-                            <LinkWithICon title={"Contact us"} path={"/contact-us"} icon={<LuContact />} />
-                            <LinkWithICon title={"About us"} path={"/about-us"} icon={<FcAbout />} />
+                            <LinkWithICon title={"Contact us"} link={"/contact-us"} icon={<LuContact />} />
+                            <LinkWithICon title={"About us"} link={"/about-us"} icon={<FcAbout />} />
                         </div>
                         <div className='flex flex-col items-start  gap-2  py-4 ps-4'>
                             <LinkWithICon title={"User agreement"} />
@@ -108,52 +134,64 @@ export const Navbar = ({ searchExist = true }) => {
             {searchExist && <div className=' lg:basis-1/2 lg:flex  h-12 items-center border-2 border-pink-500 rounded-lg mx-4 hidden '>
 
                 <BrandInput
-                    placeholder={"search"}
+                    placeholder={t("nav.search")}
                     divStyle={"border-[2px] border-none shadow-none w-full "
 
                     }
                     inputStyle={"rounded-e-none h-full py-3"}
+                    onInput={handleSearch}
                 />
 
                 <DropDown
-                    title="All Category"
+                    title={selected.name ? selected.name : t("nav.category")}
                     styleDrop=' h-11  border-s-pink-500 border-s-[2px] border-white w-42 rounded-none'
                     styleMenu='border-pink-500  max-h-32 overflow-y-scroll [&::-webkit-scrollbar]:w-1
                     [&::-webkit-scrollbar-thumb]:bg-pink-400
-                    [&::-webkit-scrollbar-thumb]:rounded-lg'>
+                    [&::-webkit-scrollbar-thumb]:rounded-lg'
+                >
+                    <button className="flex w-full p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 "
+                        onClick={() => {
+                            setSelected({ name: "All Category", id: null })
+                        }} >All Category</button>
                     {category ? category.map(item => (
-                        <NavLink key={item.id} to={`/products/${item.id}`} className="block p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 " >{item.name}</NavLink>
+                        <button key={item.id} value={item.id} className="flex w-full p-2 cursor-pointer hover:odd:bg-pink-300 hover:even:bg-pink-400 "
+                            onClick={() => {
+                                setSelected({ name: item.name, id: item.id })
+                            }} >{item.name}</button>
                     )) : <></>}
 
 
                 </DropDown>
 
-                <BrandBtn title="Search" btnStyle={"h-full before:rounded-none rounded-none rounded-e-md w-[50%]"} />
+
+
+
+                <BrandLink title={t("nav.search")} path={`/products${selected.id ? "/category/" + selected.id : ''}${search ? "/search/" + search : ''}`} btnStyle={"h-full before:rounded-none rounded-none rounded-e-md w-[50%]"} />
 
 
             </div>}
 
             <div className={`${searchExist ? "lg:basis-1/3" : ""} flex items-center justify-end gap-3 lg:me-0 sm:me-5 me-10 `}>
-
+                <LanguageSwitcher />
                 <button className='px-2 py-2 rounded-full bg-pink-700 text-white hover:scale-105 transition-all duration-300 shadow-md' onClick={toggleMode} >{mode === "light" ? <FaMoon /> : <FaSun />}</button>
 
-                <LinkWithICon title={user.token ? "profile" : "Join"} icon={<User />}
+                <LinkWithICon title={user.token ? t("nav.profile") : "Join"} icon={<User />}
                     link={user.token ? '/profile' : '/registration'}
                 />
-                <LinkWithICon title={"Message"} icon={<MessageSquare />}
+                <LinkWithICon title={t("nav.message")} icon={<MessageSquare />}
                     link='/contact-us'
                     linkStyle={"sm:flex hidden"}
                 />
                 <div className='relative group cursor-pointer flex items-center gap-2 ' >
                     {favorite ? <span className="absolute -top-3 -inset-s-3 flex w-5 h-5  items-center justify-center rounded-full border-2 border-pink-700 bg-pink-700 text-white">{favorite?.length}</span> : <></>}
-                    <LinkWithICon title={"Favorite"} icon={<Heart />}
+                    <LinkWithICon title={t("nav.favorite")} icon={<Heart />}
                         link='/favorite'
                         linkStyle={"sm:flex hidden "}
                     />
                 </div>
                 <div className='relative group cursor-pointer flex items-center gap-2  '>
                     {cart ? <span className="absolute -top-3 -inset-s-3 flex w-5 h-5  items-center justify-center rounded-full border-2 border-pink-700 bg-pink-700 text-white">{cart?.length}</span> : <></>}
-                    <OffCanvas OffCanvasStyle={"bg-white"} IconColor='text-gray-500 group-hover:text-pink-500 cursor-pointer' isRtl={false} icon={<ShoppingCart />} id="cart" xColor="text-pink-500"
+                    <OffCanvas OffCanvasStyle={"bg-white"} IconColor='text-gray-500 group-hover:text-pink-500 cursor-pointer' isRtl={false} icon={<ShoppingCart />} id="cart" xColor="text-pink-500 "
                         header={"Your Shopping Bag"}
                     >
                         <div className='p-5'>
@@ -170,17 +208,17 @@ export const Navbar = ({ searchExist = true }) => {
                             )) : <p>No item added</p>}
 
                             <div className='flex flex-col  mt-6 dark:text-white'>
-                                <p className='flex justify-between items-center '>SubTotal :<span className='text-pink-700 text-2xl'>${0}</span> </p>
-                                <BrandBtn title={"Checkout"} btnStyle={"rounded-md before:rounded-md w-full"} />
+                                <p className='flex justify-between items-center '>SubTotal :<span className='text-pink-700 text-2xl'>${totalPrice}</span> </p>
+                                <BrandBtn title={"Checkout"} btnStyle={"rounded-md before:rounded-md w-full"} onClick={() => { navigateTo('/payment') }} />
                                 <DefaultLink path={"/cart"} title={"view cart page"} btnStyle={"shadow-none border-2 border-pink-700 rounded-md before:rounded-md text-pink-600 w-full before:rounded-md dark:bg-gray-700"} />
                             </div>
                         </div>
                     </OffCanvas>
-                    <label htmlFor="cart" className='text-gray-500 group-hover:text-pink-500 p-0 cursor-pointer'>Cart</label>
+                    <label htmlFor="cart" className='text-gray-500 group-hover:text-pink-500 p-0 cursor-pointer'>{t('nav.cart')}</label>
 
 
                 </div>
-                <BrandBtn title={"logout"} btnStyle={"rounded-md before:rounded-md w-full"} onClick={handleLogout} hidden={user.token ? false : true} />
+                <BrandBtn title={t("nav.logout")} btnStyle={"rounded-md before:rounded-md w-full"} onClick={handleLogout} hidden={user.token ? false : true} />
 
             </div>
 

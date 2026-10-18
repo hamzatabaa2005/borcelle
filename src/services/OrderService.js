@@ -70,8 +70,9 @@ export const OrderService = {
                 return res.json();
             })
     },
-    CancelOrder: function (id, token) {
-        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.Order}/${id}`;
+    CancelOrder: function (id, token, comment = "no") {
+        const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER}/${id}`;
+        console.log(url)
 
         return fetch(url, {
             method: "DELETE",
@@ -80,7 +81,7 @@ export const OrderService = {
                 "Accept": "application/json",
                 "Authorization": `Bearer ${token}`
             }
-
+            , body: JSON.stringify({ comment: comment })
         }
         )
             .then((res) => {

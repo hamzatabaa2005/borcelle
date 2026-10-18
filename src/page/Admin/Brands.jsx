@@ -3,16 +3,15 @@ import { AdminBrandService } from "../../services/Admin/AdminBrandService";
 import { getName, getTr } from "./utils/adminHelpers";
 
 const fields = [
-    { name: "name", label: "Name (EN)", required: true }
+    { name: "name", label: "Name ", required: true }
 ];
 
 const columns = [
     { label: "ID", render: (r) => r.id },
-    { label: "Name (EN)", render: (r) => getName(r) },
-    { label: "Name (AR)", render: (r) => <span dir="rtl">{getTr(r, "ar") || "-"}</span> },
+    { label: "Name ", render: (r) => getName(r) },
 ];
 
-const toForm = (item) => ({ "en.name": getTr(item, "en"), "ar.name": getTr(item, "ar") });
+const toForm = (item) => ({ "en.name": getTr(item, "en") });
 
 // The brand API also expects a top-level "name"; we fill it from the English name
 const transform = (payload) => (payload.en?.name ? { name: payload.en.name, ...payload } : payload);

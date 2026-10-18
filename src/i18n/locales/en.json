@@ -1,0 +1,37 @@
+{
+    "common": {
+        "language": "Language",
+        "english": "English",
+        "arabic": "العربية"
+    },
+    "nav": {
+        "userAlt": "user",
+        "signIn": "Sign in",
+        "register": "Register",
+        "home": "Home",
+        "products": "Products",
+        "favorites": "Favorites",
+        "favorite": "Favorite",
+        "myOrders": "My orders",
+        "contactUs": "Contact us",
+        "aboutUs": "About us",
+        "userAgreement": "User agreement",
+        "partnership": "Partnership",
+        "privacyPolicy": "Privacy policy",
+        "searchPlaceholder": "Search",
+        "category": "Category",
+        "search": "Search",
+        "profile": "Profile",
+        "join": "Join",
+        "message": "Message",
+        "cart": "Cart",
+        "logout": "Logout"
+    },
+    "cart": {
+        "yourBag": "Your Shopping Bag",
+        "noItems": "No item added",
+        "subtotal": "Subtotal:",
+        "checkout": "Checkout",
+        "viewCart": "View cart page"
+    }
+}

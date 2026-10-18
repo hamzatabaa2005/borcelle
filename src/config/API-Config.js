@@ -19,6 +19,4 @@ export const API_Config =
         ADDRESS: "address",
         CUSTOMER: "customer"
     }
-
-
 }

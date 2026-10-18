@@ -1,8 +1,8 @@
-const hoverStyleBtn = " relative before:absolute before:inset-s-0 before:inset-bs-0 hover:before:inset-0 before:bg-pink-200/20 before:z-10 "
+const hoverStyleBtn = " relative before:absolute before:inset-s-0 before:inset-bs-0 hover:before:inset-0 before:bg-pink-700/80 before:z-10 "
 
 export const BrandBtn = ({ title, btnStyle, ...props }) => {
     return (
-        <button className={` bg-pink-700  px-3 py-2 my-2 text-center text-white disabled:bg-pink-950 hover:bg-pink-200/70 cursor-pointer ${btnStyle}`}
+        <button className={` bg-pink-700  px-3 py-2 my-2 text-center text-white disabled:bg-pink-950 hover:bg-pink-700/70 cursor-pointer ${btnStyle}`}
             {...props} >{title ? title : "btn"}</button>
     )
 }
@@ -35,7 +35,7 @@ export const DropDown = ({ title, styleDrop = "", styleMenu = "", children }) =>
     const [isHidden, setIsHidden] = useState(true)
     return (
         <div className="relative ">
-            <div className={`border-solid border-gray-400 border px-5 py-2 rounded cursor-pointer  flex gap-2  bg-white shadow-md items-center select-none dark:bg-gray-700 dark:text-white dark:border-pink-700 ${styleDrop}`} onClick={() => {
+            <div className={`border-solid border-gray-400 border px-5 py-2 rounded cursor-pointer  flex justify-between  gap-2  bg-white shadow-md items-center select-none dark:bg-gray-700 dark:text-white dark:border-pink-700 ${styleDrop}`} onClick={() => {
                 setIsHidden(!isHidden)
             }} >
                 {title}
