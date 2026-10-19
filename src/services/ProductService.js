@@ -29,7 +29,6 @@ export const ProductService = {
     },
     GetProductsByCategoryAndSearch: function (CategoryID = "", Search = "") {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.PRODUCTS}?search=${Search}&category_id=${CategoryID ? CategoryID : ""}`;
-        console.log(url)
 
         return fetch(url, {
             method: "GET",

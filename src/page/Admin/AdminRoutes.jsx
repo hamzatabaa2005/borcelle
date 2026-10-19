@@ -11,7 +11,6 @@ import { Orders } from "./Orders";
 import { Cities } from "./Cities";
 import { Municipals } from "./Municipals";
 
-// Everything under /admin/*  (App.jsx only mounts this one component)
 export const AdminRoutes = () => (
     <AdminAuthProvider>
         <Routes>

@@ -79,7 +79,7 @@ const Payment = () => {
     useEffect(() => {
 
         AddressService.GetAddress(user.token).then(data => {
-            console.log(data)
+
             setAddress(data.data)
         })
     }, [])
@@ -88,7 +88,6 @@ const Payment = () => {
         setErr(null)
         OrderService.CreateOrder(user.token, SelectedAddress ? SelectedAddress.id : Default(address)[0].id, undefined, paymentType, coupon).then(
             data => {
-                console.log(data)
                 setCart(null)
                 setShowModal(!showModal)
             }

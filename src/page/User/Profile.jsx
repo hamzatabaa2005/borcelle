@@ -51,7 +51,6 @@ const Profile = () => {
 
         UserService.updateUserName(user.token, firstName)
             .then(() => {
-                console.log(firstName)
                 setUser({ ...user, name: firstName })
             })
             .catch(err => { console.log(err) })

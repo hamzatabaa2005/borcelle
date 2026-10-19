@@ -26,7 +26,7 @@ const ContactUs = () => {
         e.preventDefault()
         const { email, message } = form
         ContactUsService.ContactUs(email, message).then(data => {
-            console.log(data.message)
+
         })
             .catch(err => {
                 setErr(err)

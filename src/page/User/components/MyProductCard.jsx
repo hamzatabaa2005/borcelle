@@ -39,7 +39,6 @@ export const MyProductCard = ({ id, name, description,
     function DeleteProduct() {
         ProductService.DeleteProduct(id, user.token)
             .then(data => {
-                console.log(data)
                 onChange && onChange()
             })
             .catch(err => {
@@ -59,7 +58,6 @@ export const MyProductCard = ({ id, name, description,
 
         ProductService.UpdateProduct(id, name, description, price, category_id, user.token)
             .then((data) => {
-                console.log(data)
 
                 setShowModal(false)
                 onChange && onChange()

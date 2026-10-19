@@ -42,7 +42,6 @@ const Verification = () => {
         const otp = Object.values(OTP).join('');
         AuthService.VerificationService(otp, phone)
             .then((userInfo) => {
-                console.log(userInfo)
                 setUser({
                     email: userInfo.data.email,
                     id: userInfo.data.id,
@@ -54,7 +53,7 @@ const Verification = () => {
                 localStorage.setItem("user_info", JSON.stringify(userInfo.data))
                 navigateTo("/")
             }).catch().finally(
-                console.log(user))
+        )
     }
 
     return (

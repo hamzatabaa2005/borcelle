@@ -19,7 +19,6 @@ export const ProductDetails = ({ inStock = true, title = "", rate = 5, numberOfR
             then(pro => {
                 CartService.AddToCart(pro.data.id, 1, user.token)
                     .then(data => {
-                        console.log(data)
                     })
 
             })

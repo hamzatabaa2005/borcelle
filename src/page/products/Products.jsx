@@ -10,7 +10,7 @@ import { Breadcrumb } from "../../components/BreadCrumb";
 import { ProductService } from "../../services/ProductService";
 import { CategoryService } from "../../services/CategoryService";
 import { ProductListSection } from "./components/ProductListSection";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { BiReset } from "react-icons/bi";
 
 
@@ -21,6 +21,7 @@ export const Products = () => {
 
     const params = useParams()
     const [order, setOrder] = useState(null)
+    const navigateTo = useNavigate()
 
     addEventListener('resize', () => {
         setWidth(window.innerWidth)
@@ -28,17 +29,17 @@ export const Products = () => {
             setGrid(true)
         }
     })
+
     const [productsData, setProducts] = useState(null)
     const [category, setCategory] = useState(null)
     const [categoryID, setCategoryID] = useState(null)
     const [orderBy, setOrderBy] = useState(null)
     const [price, setPrice] = useState({ from: 0, to: 100000 })
+
     useEffect(() => {
-        console.log(categoryID)
         ProductService.GetProductsByCategoryAndSearch(categoryID || "", params.Search || "")
             .then(products => {
                 setProducts(products.data)
-                console.log(products)
             })
 
     }, [categoryID, params.Search])
@@ -63,7 +64,7 @@ export const Products = () => {
 
 
     function handelOrder() {
-        const sort = order == "desc" ? "asc" : "desc"
+        const sort = order ? (order == "desc" ? "asc" : "desc") : "asc"
         setOrder(sort)
 
         ProductService.filterProduct(categoryID || "", orderBy || "", sort, price.from || "", price.to || "").then(products => {
@@ -72,7 +73,6 @@ export const Products = () => {
     }
 
     function handelOrderBy(e) {
-        console.log(e.target.value)
         setOrderBy(e.target.value)
         ProductService.filterProduct(categoryID || "", e.target.value, order || "", price.from || "", price.to || "").then(products => {
             setProducts(products.data)
@@ -80,7 +80,6 @@ export const Products = () => {
     }
 
     function handelPrice(priceRange) {
-        console.log(priceRange)
         setPrice({ from: priceRange.from, to: priceRange.to })
         ProductService.filterProduct(categoryID || "", orderBy || "", order || "asc", priceRange.from, priceRange.to).then(products => {
             setProducts(products.data)
@@ -91,6 +90,7 @@ export const Products = () => {
         setCategoryID(null)
         setOrder(null)
         setOrderBy(null)
+        navigateTo('/products')
         setPrice({ from: 0, to: 100000 })
         ProductService.GetProducts().then(products => {
             setProducts(products.data)

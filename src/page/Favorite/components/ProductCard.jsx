@@ -18,9 +18,8 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
 
     function AddToFavorite() {
         setLike(true)
-        console.log(user.token)
         FavoriteService.SetProductAsFavorite(id, user.token).then(data => {
-            console.log(data)
+
         })
             .catch(err => {
                 console.log(err)
@@ -44,9 +43,8 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
     }
     function RemoveFromFavorite() {
         setLike(false)
-        console.log(user.token)
         FavoriteService.DeleteFromFavorite(id, user.token).then(data => {
-            console.log(data)
+
         })
             .catch(err => {
                 console.log(err)
@@ -73,7 +71,6 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
             then(pro => {
                 CartService.AddToCart(pro.data.id, 1, user.token)
                     .then(data => {
-                        console.log(data)
                     })
 
             })

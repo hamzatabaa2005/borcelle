@@ -18,7 +18,6 @@ export const Address = () => {
 
         AddressService.GetAddress(user.token).then(
             data => {
-                console.log(data)
                 setAddress(data.data)
             }
         )
@@ -53,11 +52,9 @@ export const Address = () => {
 
         AddressService.AddAddress(name, phone, city, street, neighborhood, building, zip_code, lat, lng, is_default, user.token)
             .then((data) => {
-                console.log(data)
                 setShowModal(false)
                 AddressService.GetAddress(user.token).then(
                     data => {
-                        console.log(data)
                         setAddress(data.data)
                     }
                 )

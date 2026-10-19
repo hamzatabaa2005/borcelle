@@ -7,13 +7,12 @@ import { ConfirmDelete } from "./ConfirmDelete";
 import { ViewModal } from "./ViewModal";
 import { extractList, extractLastPage } from "../../page/Admin/utils/adminHelpers";
 
-// One reusable CRUD page. Each admin page (Products, Brands...) is just a config for this.
 export const ResourcePage = ({ title, addLabel, service, columns, createFields, editFields, toForm, transform, showView = false }) => {
 
     const [page, setPage] = useState(1);
     const [reload, setReload] = useState(0);
     const [query, setQuery] = useState("");
-    const [modal, setModal] = useState(null); // {type:"form"|"delete"|"view", item}
+    const [modal, setModal] = useState(null);
     const [result, setResult] = useState({ key: null, list: [], lastPage: 1, error: "" });
 
     const requestKey = `${page}-${reload}`;

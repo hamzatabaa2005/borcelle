@@ -46,7 +46,6 @@ export const OrderCard = ({ id, discount,
         setLoading(true)
         OrderService.CancelOrder(id, user.token)
             .then(data => {
-                console.log(data)
                 setOrderStatus("CANCELLED")
             })
             .catch(err => {

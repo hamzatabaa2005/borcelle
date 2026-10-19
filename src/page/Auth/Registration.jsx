@@ -49,7 +49,6 @@ export const Registration = () => {
 
         AuthService.RegisterService(name, email, phoneNumber, imgFile)
             .then((data) => {
-                console.log(data)
                 navigateTo("/login")
             })
             .catch(err => {
@@ -64,13 +63,12 @@ export const Registration = () => {
 
     function handleImg(e) {
         const file = e.target.files[0]
-        console.log(file)
+
             ; if (file) {
                 const link = URL.createObjectURL(file);
-                console.log("link")
-                console.log(link)
+
                 setForm({ ...form, img: link, imgFile: file });
-                console.log(form.imgFile)
+
             }
     }
 

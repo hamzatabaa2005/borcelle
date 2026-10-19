@@ -14,7 +14,6 @@ export const SavedProductCard = ({ img, price, title, id }) => {
             then(pro => {
                 CartService.AddToCart(pro.data.id, 1, user.token)
                     .then(data => {
-                        console.log(data)
                     }).catch().
                     finally(() => {
                         CartService.GetCart(user.token).then(UserProduct => {

@@ -1,25 +1,13 @@
-// import { useContext, useEffect, useState } from "react"
+
 import { Divider } from "../../components/Divider"
 import ContainerLayout from "../../layout/ContainerLayout"
 import { NavLayout } from "../../layout/NavLayout"
-// import { SettingServices } from "../../services/SettingService"
 import { TermsCard } from "./components/TermsCard"
-// import { UserContext } from "../../context/UserContext/UserContext"
 
 
 const TermsAndCondition = () => {
 
-    // const { user } = useContext(UserContext)
 
-    // const [termsAndCondition, setTermsAndCondition] = useState(null)
-    // const [err, setErr] = useState(null)
-    // useEffect(() => {
-    //     SettingServices.TermsAndCondition(user.token)
-    //         .then(Terms => {
-    //             setTermsAndCondition(Terms)
-    //             console.log(Terms)
-    //         }).catch(err => setErr(err))
-    // }, [])
 
     const termsAndCondition = [
         {
@@ -76,7 +64,7 @@ const TermsAndCondition = () => {
 
 
                     <Divider title="Terms and condition" />
-                    {/* {err && <div className="flex justify-center items-center text-xl w-full rounded-md h-24 bg-amber-200 ">{err.message}</div>} */}
+
                     <div className="md:mx-2 mx-5 overflow-y-scroll h-[70vh]
                 [&::-webkit-scrollbar]:w-1
              [&::-webkit-scrollbar-thumb]:bg-pink-400

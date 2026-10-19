@@ -1,5 +1,4 @@
-// Mock data for dashboard parts that the Admin API does not provide yet.
-// When real endpoints exist, replace these imports in Dashboard.jsx.
+
 
 export const mockStats = {
     products: 1240,

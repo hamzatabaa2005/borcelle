@@ -45,7 +45,6 @@ export const CartProduct = ({ img, desc, size, seller, price, quantity = 0, id, 
         CartService.DeleteFromCart(containerId, user.token).then()
         CartService.GetCart(user.token
         ).then(product => {
-            console.log(product)
 
             setCart(product.data)
         }).catch().finally(() => {

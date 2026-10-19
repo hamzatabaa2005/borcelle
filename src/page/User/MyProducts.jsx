@@ -70,7 +70,6 @@ export const MyProducts = () => {
 
         ProductService.AddProduct(name, description, price, imgFile, category_id, user.token)
             .then((data) => {
-                console.log(data)
                 setShowModal(false)
                 setForm({ name: "", description: "", price: "", category_id: "", img: "", imgFile: null })
                 loadProducts()

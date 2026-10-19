@@ -13,7 +13,6 @@ const columns = [
 
 const toForm = (item) => ({ "en.name": getTr(item, "en") });
 
-// The brand API also expects a top-level "name"; we fill it from the English name
 const transform = (payload) => (payload.en?.name ? { name: payload.en.name, ...payload } : payload);
 
 export const Brands = () => (

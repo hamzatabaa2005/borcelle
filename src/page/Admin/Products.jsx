@@ -17,7 +17,6 @@ const fields = [
     { name: "image", label: "Image (optional)", type: "file" },
 ];
 
-// editing a product does not change its image
 const editFields = fields.filter((f) => f.type !== "file");
 
 const columns = [

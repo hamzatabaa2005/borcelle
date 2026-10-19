@@ -1,4 +1,3 @@
-// Small helpers that make the admin pages tolerant to different API response shapes.
 
 export const extractList = (res) => {
     if (Array.isArray(res)) return res;
@@ -22,7 +21,6 @@ export const extractTotal = (res) => {
     return t != null ? Number(t) : extractList(res).length;
 }
 
-// Reads a translated field from {en:{name}}, translations:[{locale,name}] or falls back to item.name
 export const getTr = (item, locale, field = "name") => {
     if (!item) return "";
     const direct = item?.[locale]?.[field];
@@ -38,14 +36,12 @@ export const getTr = (item, locale, field = "name") => {
 
 export const getName = (item) => item?.name || getTr(item, "en") || getTr(item, "ar") || "-";
 
-// Safe text for any value coming from the API
 export const text = (v) => {
     if (v == null || v === "") return "-";
     if (typeof v === "string" || typeof v === "number") return String(v);
     return v.name ?? v.title ?? v.address ?? v.id ?? "-";
 }
 
-// {"en.name": "x"} -> {en:{name:"x"}}
 export const toNested = (flat) => {
     const out = {};
     Object.entries(flat).forEach(([key, value]) => {

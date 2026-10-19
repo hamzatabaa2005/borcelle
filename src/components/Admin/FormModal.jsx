@@ -4,7 +4,6 @@ import { toNested } from "../../page/Admin/utils/adminHelpers";
 
 const inputStyle = "w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-2 focus:outline-none focus:border-pink-500";
 
-// fields: [{ name:"en.name", label, type:"text|number|textarea|select|file", options?, loadOptions?, required? }]
 export const FormModal = ({ title, fields, initial = {}, onSubmit, onClose }) => {
 
     const [values, setValues] = useState(initial);

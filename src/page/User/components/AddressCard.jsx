@@ -41,7 +41,6 @@ export const AddressCard = ({ id, name, phone,
     function DeleteAddress() {
         AddressService.DeleteAddress(id, user.token)
             .then(data => {
-                console.log(data)
 
             })
             .catch(err => {
@@ -65,7 +64,6 @@ export const AddressCard = ({ id, name, phone,
 
         AddressService.UpdateAddress(id, name, phone, city, street, neighborhood, building, zip_code, lat, lng, is_default, user.token)
             .then((data) => {
-                console.log(data)
 
                 setShowModal(false)
             })

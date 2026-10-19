@@ -15,7 +15,6 @@ export const Orders = () => {
 
         OrderService.GetOrders(user.token)
             .then(data => {
-                console.log(data)
                 setOrders(data.data)
             })
             .catch(err => {

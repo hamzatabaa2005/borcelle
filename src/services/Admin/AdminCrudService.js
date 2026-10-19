@@ -1,6 +1,5 @@
 import { AdminRequest } from "./AdminRequest";
 
-// Builds the 5 CRUD calls for any admin endpoint
 export const AdminCrudService = function (endpoint) {
     return {
         GetAll: function (page = 1) {

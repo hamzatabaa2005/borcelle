@@ -11,7 +11,6 @@ const createFields = [
     { name: "notes", label: "Notes", type: "textarea" },
 ];
 
-// Per the API, editing an order only changes status and notes
 const editFields = [
     { name: "status", label: "Status", type: "select", options: statuses, required: true },
     { name: "notes", label: "Notes", type: "textarea" },

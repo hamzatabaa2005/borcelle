@@ -72,7 +72,7 @@ export const OrderService = {
     },
     CancelOrder: function (id, token, comment = "no") {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.ORDER}/${id}`;
-        console.log(url)
+
 
         return fetch(url, {
             method: "DELETE",

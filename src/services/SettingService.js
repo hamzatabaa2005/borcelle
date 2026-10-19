@@ -3,7 +3,7 @@ import { API_Config } from "../config/API-Config";
 export const SettingServices = {
     TermsAndCondition: function (token) {
         const url = `${API_Config.BASE_URL}/${API_Config.ENDPOINTS.SETTING}/${API_Config.ENDPOINTS.TERMS_AND_CONDITIONS}`;
-        console.log(url)
+
 
         return fetch(url, {
             method: "GET",

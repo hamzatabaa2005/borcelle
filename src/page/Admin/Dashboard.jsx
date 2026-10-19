@@ -17,7 +17,6 @@ export const Dashboard = () => {
     const { mode } = useContext(ThemeContext);
     const [live, setLive] = useState({ stats: {}, orders: [] });
 
-    // Real totals come from the list endpoints. Anything that fails falls back to mock data.
     useEffect(() => {
         let ignore = false;
         Promise.allSettled([

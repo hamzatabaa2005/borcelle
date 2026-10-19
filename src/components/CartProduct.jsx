@@ -45,7 +45,6 @@ export const CartProduct = ({ img, title, desc, price, quantity = 1, id, contain
 
             CartService.GetCart(user.token
             ).then(product => {
-                console.log(product)
                 setCart(product.data)
             })
         })
