@@ -29,17 +29,29 @@ export const SavedProductCard = ({ img, price, title, id }) => {
 
     }
     return (
-        <div className="flex flex-col gap-3 rounded-md overflow-hidden group dark:text-white">
-            <div className="relative inline-block w-full h-53 ">
-                <img src={img} alt={title} className="w-full h-full object-cover object-center" />
-                <div className="bg-black/0 w-full h-full absolute top-0 left-0 inset-0 group-hover:bg-black/30 transition-all duration-500" ></div>
-            </div>
-            <div className="flex flex-col gap-3 ps-2 h-32  ">
-                <p className="font-bold">{price}</p>
-                <p className="text-gray-400 dark:text-white">{title}</p>
+        <div className="flex flex-col justify-between rounded-md overflow-hidden group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-xs hover:shadow-md transition-all duration-300 dark:text-white pb-4">
 
+            <div className="relative w-full h-52 overflow-hidden bg-gray-100 dark:bg-gray-800">
+                <img
+                    src={img}
+                    alt={title}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
             </div>
-            <DefaultBtn title={"Move to cart "} btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-32 ms-2 before:rounded-md group-hover:w-1/2 duration-500  dark:bg-gray-800"} onClick={AddProductToCart} />
+
+            <div className="flex flex-col gap-1.5 p-4 flex-grow">
+                <p className="text-lg font-bold text-gray-900 dark:text-white">{price}$</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 line-clamp-2">{title}</p>
+            </div>
+
+            <div className="px-4">
+                <DefaultBtn
+                    title={"Move to cart"}
+                    btnStyle={"shadow-none border border-gray-200 dark:border-gray-700 rounded-md text-pink-600 dark:text-pink-400 w-full py-2 text-sm font-medium hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors before:rounded-md"}
+                    onClick={AddProductToCart}
+                />
+            </div>
         </div>
     )
 }

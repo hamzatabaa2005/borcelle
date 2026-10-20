@@ -56,45 +56,69 @@ export const CartProduct = ({ img, desc, size, seller, price, quantity = 0, id, 
         })
     }
     return (
-        <div className="md:flex  justify-between border-b border-gray-300 dark:border-gray-600 p-5 dark:text-white">
-            <div className="flex space-between gap-2">
-                <div className="shrink-0 h-full w-32 border-2 border-gray-200 dark:border-gray-600 overflow-hidden rounded-md ">
+        <div className="md:flex justify-between items-center border-b border-gray-300 dark:border-gray-600 p-5 dark:text-white">
+
+            <div className="flex gap-4 w-full">
+                <div className="shrink-0 h-28 w-28 md:h-32 md:w-32 border-2 border-gray-200 dark:border-gray-600 overflow-hidden rounded-md">
                     {img && <img src={img} alt={desc} className="w-full h-full object-cover object-center" />}
                 </div>
-                <div className="space-y-1">
-                    <p>{desc}</p>
+
+                <div className="flex flex-col justify-between flex-grow space-y-1">
                     <div>
-                        <p className="text-gray-500 dark:text-white">size:{size}</p>
-                        <p className="text-gray-500 dark:text-white">{seller}</p>
-                    </div>
-                    <div className="lg:flex hidden w-82 gap-5 mt-3">
-                        <DefaultBtn title={"Remove "} btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-32 ms-2 before:rounded-md dark:bg-gray-700"} onClick={DeleteProduct} />
-                        <DefaultBtn title={"Save for later"} btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-32 ms-2 before:rounded-md  dark:bg-gray-700"} />
+                        <p className="font-semibold text-gray-900 dark:text-white">{desc ? desc.slice(0, 100) + (desc.length > 100 ? "..." : "") : ""}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-300">Size: {size}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-300">{seller}</p>
                     </div>
 
+                    <div className="lg:flex hidden gap-3 mt-3">
+                        <DefaultBtn
+                            title={"Remove"}
+                            btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 px-4 py-1 before:rounded-md dark:bg-gray-700"}
+                            onClick={DeleteProduct}
+                        />
+                        <DefaultBtn
+                            title={"Save for later"}
+                            btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 px-4 py-1 before:rounded-md dark:bg-gray-700"}
+                        />
+                    </div>
                 </div>
 
-                <button onClick={() => {
-                    setShowMenu(!showMenu)
-                }} className="relative   text-gray-800 hover:text-pink-600 md:hidden ms-auto dark:text-white"> <CiMenuKebab className="text-2xl" />
+                <div className="relative md:hidden">
+                    <button
+                        onClick={() => setShowMenu(!showMenu)}
+                        className="text-gray-800 hover:text-pink-600 dark:text-white p-1"
+                        aria-label="Menu"
+                    >
+                        <CiMenuKebab className="text-2xl" />
+                    </button>
 
-                    {showMenu ?
-                        <div className="flex flex-col p-4 gap-4 absolute -top-24 -right-16  h-32 border border-gray-300 dark:border-gray-600 rounded-md bg-white/70 dark:text-white">
-                            <DefaultBtn title={"Remove "} btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-32 ms-2 before:rounded-md dark:bg-gray-700"} onClick={DeleteProduct} />
-                            <DefaultBtn title={"Save for later"} btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-32 ms-2 before:rounded-md dark:bg-gray-700"} />
-
+                    {showMenu && (
+                        <div className="flex flex-col p-3 gap-2 absolute top-8 right-0 z-30 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 shadow-md">
+                            <DefaultBtn
+                                title={"Remove"}
+                                btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-28 before:rounded-md dark:bg-gray-700"}
+                                onClick={DeleteProduct}
+                            />
+                            <DefaultBtn
+                                title={"Save for later"}
+                                btnStyle={"shadow-none border border-gray-200 rounded-md text-pink-600 w-28 before:rounded-md dark:bg-gray-700"}
+                            />
                         </div>
-                        :
-                        <></>}
-
-                </button>
-
+                    )}
+                </div>
             </div>
 
-            <div className="md:block flex justify-between items-center md:mt-0 mt-4 ">
-                <p className="order-1 md:mb-4 md:order-0">{price * quantity}$</p>
-                <Counter count={count} setCount={setCount} onClick1={MinusProductQuantity} onClick2={addProductQuantity} />
+            <div className="flex md:flex-col justify-between items-center md:items-end md:mt-0 mt-4 pt-3 md:pt-0 border-t md:border-t-0 border-gray-200 dark:border-gray-700">
+                <p className="text-lg font-bold order-0 md:mb-4">
+                    {price * quantity}$
+                </p>
+                <Counter
+                    count={count}
+                    setCount={setCount}
+                    onClick1={MinusProductQuantity}
+                    onClick2={addProductQuantity}
+                />
             </div>
-        </div >
+        </div>
     )
 }
