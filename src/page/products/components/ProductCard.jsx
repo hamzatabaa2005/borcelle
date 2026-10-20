@@ -82,16 +82,16 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
 
 
     return (
-        <div className={`flex relative border border-gray-200 dark:border-gray-600 rounded-lg h-full  overflow-hidden ${isCol ? " flex-col" : " gap-5"}`}>
+        <div className={`group flex relative border border-gray-200 dark:border-gray-600 rounded-xl h-full overflow-hidden transition-shadow duration-300 hover:shadow-lg ${isCol ? " flex-col" : " gap-5"}`}>
 
-            <div className={`rounded-t-md overflow-hidden shrink-0  ${isCol ? "h-48 sm:h-56 w-full" : " w-1/3"}`}>
-                <img src={image} alt={name} loading="lazy" className="w-full h-full object-center object-cover" />
+            <div className={`rounded-t-md overflow-hidden shrink-0  ${isCol ? "h-48 sm:h-56 w-full" : " w-1/3 min-h-44"}`}>
+                <img src={image} alt={name} loading="lazy" className="w-full h-full object-center object-cover transition-transform duration-500 group-hover:scale-105" />
             </div>
 
-            <div className={`flex p-4 flex-col justify-between ${isCol ? "relative " : ""}`}>
+            <div className="flex flex-1 p-4 gap-3 flex-col justify-between">
                 <div className="space-y-2 pe-8">
-                    <h3 className="font-semibold text-lg ">{name}</h3>
-                    <p className="font-bold">{price} ${originalPrice ? <del className="text-gray-400 ms-2  ">{originalPrice}</del> : <></>} </p>
+                    <h3 className="font-semibold text-lg leading-snug line-clamp-2">{name}</h3>
+                    <p className="font-bold text-xl">{price} ${originalPrice ? <del className="text-gray-400 ms-2 text-sm font-normal">{originalPrice}</del> : <></>} </p>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                     <Stars rate={rate} /> {!isCol ? <p>{numberOfOrders}</p> : ''}
@@ -99,7 +99,7 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
 
                 </div>
                 <div className="space-y-2 ">
-                    <p >{description ? description.slice(0, 100) + (description.length > 100 ? "..." : "") : ""}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">{description ? description.slice(0, 100) + (description.length > 100 ? "..." : "") : ""}</p>
 
 
 
@@ -115,10 +115,10 @@ export const ProductCard = ({ image, name, price, description, rate = 5, origina
                     </button>
 
                 </div>
-                <div className={`flex item-center  gap-3 mt-4 self- pt-2 border-t border-gray-100 dark:border-gray-700`}>
+                <div className={`flex items-center gap-3 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700`}>
                     <BrandLink path={`/product/${id}`} title={"Show Details"} btnStyle={"rounded-md hover:bg-pink-400"} />
                     <DefaultBtn title={"Add to Cart"} onClick={AddProductToCart}
-                        btnStyle={"rounded-md dark:bg-gray-700 dark:text-white shadow-none  before:rounded-md"} />
+                        btnStyle={"rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-none  before:rounded-md"} />
                 </div>
 
             </div>

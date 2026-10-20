@@ -50,21 +50,20 @@ export const CartProduct = ({ img, title, desc, price, quantity = 1, id, contain
         })
     }
     return (
-        <div className="relative grid grid-cols-3 my-2 dark:text-white gap-3">
-            <div className="w-full h-full overflow-hidden rounded-md "><img src={img} alt={title} className="w-full h-full object-cover object-center" />
-                <span className="absolute top-0 inset-e-2 flex w-6 h-6  items-center justify-center rounded-full border-2 border-pink-700 text-pink-700">{count}</span></div>
-            <div >
-                <p className="text-xl font-bold ">{title}</p>
+        <div className="relative grid grid-cols-[6rem_1fr_auto] items-start py-4 border-b border-gray-200 dark:border-gray-700 dark:text-white gap-4">
+            <div className="relative w-full aspect-square"><img src={img} alt={title} className="w-full h-full object-cover object-center rounded-md border border-gray-200 dark:border-gray-700" />
+                <span className="absolute -top-2 -inset-e-2 flex w-6 h-6 items-center justify-center rounded-full border-2 border-pink-700 bg-white text-xs font-semibold text-pink-700">{count}</span></div>
+            <div className="min-w-0 space-y-2">
+                <p className="text-base font-semibold leading-snug line-clamp-2">{title}</p>
                 <p className="text-gray-500 dark:text-white">{desc ? desc : ""}</p>
-                <div className="flex gap-2 ">
+                <div className="flex items-center gap-3">
                     <Counter count={count} setCount={setCount} onClick1={MinusProductQuantity} onClick2={addProductQuantity} />
-                    <button className="text-red-500 cursor-pointer" onClick={DeleteProduct}>
+                    <button className="text-red-500 hover:text-red-600 cursor-pointer" onClick={DeleteProduct}>
                         <TrashIcon />
                     </button>
                 </div>
             </div>
-            <div className="flex items-center justify-end
-            text-pink-700 text-2xl">
+            <div className="flex justify-end text-pink-700 text-lg font-semibold">
                 {price * quantity}$
             </div>
         </div>

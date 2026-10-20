@@ -161,13 +161,13 @@ const Home = () => {
                             dynamicBullets: true,
                         }}
                         modules={[Pagination]}
-                        className="mySwiper shadow shadow-pink-300 dark:shadow-pink-700 my-4"
+                        className="mySwiper  my-4"
 
                     >
                         {salesProducts ? salesProducts.map((product) => (
                             <SwiperSlide key={product.id}
 
-                                className="  dark:border-pink-700 border border-pink-100 rounded-sm ">
+                                className=" rounded-sm ">
                                 <SalesProductCard
                                     title={product.name}
                                     sale={product.sale}
@@ -209,12 +209,12 @@ const Home = () => {
                             dynamicBullets: true,
                         }}
                         modules={[Pagination]}
-                        className="mySwiper shadow shadow-pink-300 dark:shadow-pink-700 my-4"
+                        className="mySwiper shadow  my-4"
 
                     >
                         {products ? products.map(product => (
                             <SwiperSlide key={product.id}
-                                className=" dark:border-pink-700 border border-pink-100 rounded-sm">
+                                className=" rounded-sm">
                                 <ProductCard
                                     id={product.id}
                                     title={product.name}
@@ -261,12 +261,12 @@ const Home = () => {
                             dynamicBullets: true,
                         }}
                         modules={[Pagination]}
-                        className="mySwiper shadow shadow-pink-300 dark:shadow-pink-700 my-4"
+                        className="mySwiper shadow my-4"
 
                     >
                         {products ? products.map(product => (
                             <SwiperSlide key={product.id}
-                                className=" dark:border-pink-700 border border-pink-100 rounded-sm">
+                                className=" rounded-sm">
                                 <ProductCard
                                     id={product.id}
                                     title={product.name}

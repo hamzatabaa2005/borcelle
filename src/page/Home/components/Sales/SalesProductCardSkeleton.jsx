@@ -37,7 +37,7 @@ export const SalesSectionCardSkeleton = () => {
 
 export const SalesProductCardSkeleton = () => {
     return (
-        <div className="flex flex-col w-full h-full justify-between items-center p-2 space-y-3">
+        <div className="flex flex-col w-full h-full justify-between items-center p-2.5 space-y-3">
 
             <div className="w-full h-42">
                 <Skeleton
@@ -45,11 +45,10 @@ export const SalesProductCardSkeleton = () => {
                     width="100%"
                     height="100%"
                     animation="wave"
-                    className="rounded-sm! "
+                    className="rounded-xl! "
                 />
             </div>
 
-            {/* Details Box matching py-3 flex-col items-center */}
             <div className="py-3 flex flex-col items-center justify-between w-full h-1/2 space-y-2">
 
                 <Skeleton

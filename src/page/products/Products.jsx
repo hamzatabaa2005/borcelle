@@ -153,9 +153,17 @@ export const Products = () => {
                             <div className="flex gap-3 items-center">
 
                                 <button className="bg-pink-600 w-5 h-5 flex justify-center items-center rounded-full" onClick={handleReset}> <BiReset /></button>
-                                <div className="flex gap-2 items-center" onClick={handelOrder}>
-                                    <input type="checkbox" id="Verified" className="accent-pink-700 w-4 h-4" checked={order == "asc"} />
-                                    <label htmlFor="Verified">order : {order == "desc" ? "asc" : "desc"}</label>
+                                <div className="flex gap-2 items-center cursor-pointer" onClick={handelOrder}>
+                                    <input
+                                        type="checkbox"
+                                        id="Verified"
+                                        className="accent-pink-700 w-4 h-4 pointer-events-none"
+                                        checked={order === "asc"}
+                                        readOnly
+                                    />
+                                    <label htmlFor="Verified" className="cursor-pointer">
+                                        order : {order === "desc" ? "asc" : "desc"}
+                                    </label>
                                 </div>
                                 <DropDown
                                     title={orderBy ? orderBy : "orderBy"}

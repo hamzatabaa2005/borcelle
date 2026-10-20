@@ -27,9 +27,9 @@ export const CategoryCardSkeleton = () => {
 
 export const ProductCardSkeleton = () => {
     return (
-        <div className="flex w-full h-full min-h-22.5 gap-2 p-2 items-center">
+        <div className="flex w-full h-full min-h-22.5 gap-3 p-3 items-center">
 
-            <div className="w-7/12 space-y-2">
+            <div className="flex-1 min-w-0 space-y-2">
                 <Skeleton
                     variant="text"
                     width="90%"
@@ -46,7 +46,7 @@ export const ProductCardSkeleton = () => {
                 />
             </div>
 
-            <div className="w-5/12 h-full flex items-end">
+            <div className="w-18 shrink-0 flex items-center">
                 <Skeleton
                     variant="rectangular"
                     width="100%"

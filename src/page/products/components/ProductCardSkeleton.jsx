@@ -3,7 +3,7 @@ import Skeleton from '@mui/material/Skeleton';
 export const ProductCardSkeleton = ({ isCol = true }) => {
     return (
         <div
-            className={`flex relative border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden ${isCol ? 'flex-col h-[380px]' : 'gap-5 h-[180px] p-2'
+            className={`flex relative border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden ${isCol ? 'flex-col h-[460px]' : 'gap-5 h-[180px] p-2'
                 }`}
         >
             {/* Favorite Button Skeleton */}

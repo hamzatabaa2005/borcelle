@@ -24,8 +24,8 @@ export const DealsAndOffersSection = ({ salesProducts, isLoading }) => {
         <SalesProductSectionLayout>
             <div className="p-5 space-y-3">
                 <div>
-                    <h2 className="text-3xl font-bold w-84 dark:text-white">Deals and Offers</h2>
-                    <p className="text-md text-gray-700 dark:text-white">equipments</p>
+                    <h2 className="text-2xl xl:text-3xl font-bold leading-tight dark:text-white">Deals and Offers</h2>
+                    <p className="text-base text-gray-700 dark:text-white">equipments</p>
                 </div>
                 <DaysTimer seconds={seconds} setSeconds={setSeconds} />
             </div>

@@ -16,17 +16,17 @@ export const OffCanvas = ({ children, isRtl = true, xColor = "text-black", IconC
             </button>
             <div className={`${isHidden ? "hidden" : ""}  fixed z-50 inset-be-0 inset-bs-0 
             ${isRtl ? "inset-e-[15%] lg:inset-e-[50%] inset-s-0  " :
-                    "inset-s-[15%] lg:inset-s-[60%] inset-e-0"
+                    "inset-s-[10%] sm:inset-s-auto sm:w-105 inset-e-0"
                 }
-            transition-all ease-in-out duration-300 dark:bg-gray-900  ${OffCanvasStyle} `}
+            transition-all ease-in-out duration-300 shadow-2xl overflow-y-auto dark:bg-gray-900  ${OffCanvasStyle} `}
             >
-                <div className="flex justify-between items-center">
+                <div className="flex flex-row-reverse justify-between items-center border-b border-gray-200 dark:border-gray-700">
                     <button onClick={() => {
                         setIsHidden(!isHidden)
                     }} {...buttonProps}>
                         <X className={`${xColor} m-4 cursor-pointer`} />
                     </button>
-                    <h2 className="pe-5 text-xl dark:text-white">{header}</h2>
+                    <h2 className="px-5 text-xl font-semibold dark:text-white">{header}</h2>
                 </div>
                 {children}
             </div>
