@@ -23,16 +23,16 @@ export const Breadcrumb = () => {
                         <li key={index} className="me-2 ">
                             {index === breadcrumbs.length - 1 ?
                                 (
-                                    <span className="dark:text-white">
+                                    <span className="capitalize font-medium dark:text-white">
                                         {breadcrumb.label}
                                     </span>
                                 ) : (
                                     <>
-                                        <NavLink className={"text-gray-500 dark:text-gray-300"} to={breadcrumb.path}>
+                                        <NavLink className={"capitalize text-gray-500 dark:text-gray-300"} to={breadcrumb.path}>
                                             {breadcrumb.label}
                                         </NavLink>
                                         <span className="ms-2 dark:text-gray-300">
-                                            /
+                                            ›
                                         </span>
                                     </>
 
