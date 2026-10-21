@@ -74,8 +74,8 @@ export const Cart = () => {
 
 
     return (
-        <MainLayout searchExist={false} SecondaryNavExist={false}
-            subscribeExist={false} >
+        <MainLayout searchExist={false}
+            subscribeExist={false}  >
 
             <div className="lg:hidden bg-white dark:bg-gray-600 shadow-xl fixed w-screen top-0 left-0 right-0 z-100 h-16 flex items-center ps-5">
                 <NavLink to={"/"} className={"flex items-center gap-2"}>

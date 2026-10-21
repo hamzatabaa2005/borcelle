@@ -152,7 +152,7 @@ export const Products = () => {
                             <div>  12,911 items in <span className="font-bold">Mobile accessory</span> </div>
                             <div className="flex gap-3 items-center">
 
-                                <button className="bg-pink-600 w-5 h-5 flex justify-center items-center rounded-full" onClick={handleReset}> <BiReset /></button>
+                                <button onClick={handleReset} className="flex  items-center  gap-2"> <BiReset className="bg-pink-600 w-5 h-5 flex justify-center items-center rounded-full" /> reset filter</button>
                                 <div className="flex gap-2 items-center cursor-pointer" onClick={handelOrder}>
                                     <input
                                         type="checkbox"
