@@ -17,7 +17,7 @@ export const LogLayout = ({ children, NavExist = false }) => {
                     {leftChild}
 
                 </div>
-                <div>
+                <div className="md:dark:bg-gray-900">
                     {rightChild}
                 </div>
 

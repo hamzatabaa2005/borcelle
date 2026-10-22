@@ -1,25 +1,15 @@
-
 export const Product = ({ img, title, quantity, price }) => {
-
     return (
-        <div className="flex justify-between my-2 md:text-black text-white dark:text-white">
-
-            <div className="flex gap-2">
-                <div className="w-24 h-24 mt-auto rounded-md  overflow-hidden " >
-                    <img src={img} alt={title} loading="lazy" className="w-full h-full object-fit object-center " /></div >
-                <div>
-                    <h2 className="text-xl">{title}</h2>
-
+        <div className="flex justify-between items-start gap-4 py-4 border-b border-gray-100 last:border-b-0 dark:border-gray-700 md:text-black text-white dark:text-white">
+            <div className="flex gap-4 min-w-0">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden" >
+                    <img src={img} alt={title} loading="lazy" className="w-full h-full object-cover object-center " /></div >
+                <div className="min-w-0">
+                    <h2 className="text-lg font-semibold leading-snug line-clamp-2">{title}</h2>
+                    <p className="mt-1 text-sm text-gray-300 md:text-gray-500 dark:text-gray-400">Qty: {quantity}</p>
                 </div>
             </div >
-
-            <div className="flex gap-3">
-
-                <span className="border border-gray-200 h-6 w-6 rounded-md text-center md:text-black dark:text-white">{quantity}</span>
-                <span className="text-xl text-pink-600">{price * quantity}</span>
-
-
-            </div>
+            <span className="shrink-0 text-xl font-bold text-pink-600">{price * quantity}</span>
         </div >
     )
 }
